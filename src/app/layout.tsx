@@ -2,6 +2,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import Script from "next/script";
+import { AuthProvider } from "@/contexts/AuthContext";
 import "./globals.css";
 // Import all available fonts for AI usage
 import "../lib/fonts";
@@ -17,8 +18,51 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Criado com a Lasy",
-  description: "Projeto criado com Lasy AI",
+  title: "Daily Routine - Rastreador de Hábitos Inteligente",
+  description: "Transforme sua vida com o Daily Routine! Rastreie hábitos, construa streaks, ganhe níveis e alcance seus objetivos. Sistema gamificado com análises avançadas, notificações inteligentes e insights personalizados.",
+  keywords: "hábitos, rastreador de hábitos, produtividade, gamificação, streaks, rotina diária, desenvolvimento pessoal, metas, objetivos",
+  authors: [{ name: "Daily Routine Team" }],
+  creator: "Daily Routine",
+  publisher: "Daily Routine",
+  openGraph: {
+    type: "website",
+    locale: "pt_BR",
+    url: "https://dailyroutine.app",
+    title: "Daily Routine - Rastreador de Hábitos Inteligente",
+    description: "Transforme sua vida com hábitos consistentes. Sistema gamificado com análises avançadas e notificações inteligentes.",
+    siteName: "Daily Routine",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Daily Routine - Rastreador de Hábitos Inteligente",
+    description: "Transforme sua vida com hábitos consistentes. Sistema gamificado com análises avançadas.",
+    creator: "@dailyroutine",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+  icons: {
+    icon: "/icon.svg",
+    apple: "/icon.svg",
+  },
+  manifest: "/manifest.json",
+  viewport: {
+    width: "device-width",
+    initialScale: 1,
+    maximumScale: 5,
+  },
+  themeColor: [
+    { media: "(prefers-color-scheme: dark)", color: "#0f0a1f" },
+    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
+  ],
 };
 
 export default function RootLayout({
@@ -34,7 +78,9 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        <AuthProvider>
+          {children}
+        </AuthProvider>
       </body>
     </html>
   );
